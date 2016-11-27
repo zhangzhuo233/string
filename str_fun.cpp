@@ -145,12 +145,12 @@ void *My_memmove( void *dest, const void *src, size_t count)
     assert((dest != NULL) && (src != NULL));
     char *s1 = (char *)dest;
     char *s2 = (char *)src;
-    if(s1 > s2)
+    if(s1 < s2)
     {/*dest尾部和src头部重合时,就先从src的头部开始复制;*/
         while(count--)
             *s1++ = *s2++;   
     }
-    else if(s1 < s2)
+    else if(s1 > s2)
     {/*dest头部和src尾部重合时,就先从src的尾部开始复制*/
         char *s3 = s1+count;
         char *s4 = s2+count;
