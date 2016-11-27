@@ -1,45 +1,45 @@
-/*ÊµÏÖ¸÷×Ö·û´®´¦ÀíµÄº¯Êı
+/*å®ç°å„å­—ç¬¦ä¸²å¤„ç†çš„å‡½æ•°
 **2016-11-24
 */
 #include<iostream>
 #include<assert.h>
 using namespace std;
 
-size_t My_strlen1(const char *str);//Çó×Ö·û´®³¤¶È
+size_t My_strlen1(const char *str);//æ±‚å­—ç¬¦ä¸²é•¿åº¦
 size_t My_strlen2(const char *str);
-char *My_strcat(char *des, const char *src);//×Ö·û´®µÄ×·¼Ó
-char *My_strcpy(char *des, const char *src);//×Ö·û´®¿½±´
-int My_strcmp(const char *str1, const char *str2);//×Ö·û´®µÄ±È½Ï
-void *My_memset(void *s, int ch, size_t size);//½«sÖ¸ÏòµÄÄÚ´æÇøÓòÇ°n¸ö×Ö½ÚÒÔ²ÎÊıc´«Èë£¬
-                                           //È»ºó·µ»ØsµÄÖ¸Õë¡£ÓÃÓÚ½«Êı×é³õÊ¼»¯½Ï·½±ã
-                                            //ËµÃ÷:²ÎÊıcËäÉùÃ÷Îªint,µ«±ØĞëÊÇunsigned char,ËùÒÔ·¶Î§ÔÚ0µ½255Ö®¼ä
-void *My_memcpy(void *dest, const void *src, size_t count);//¿½±´srcËùÖ¸ÏòµÄÄÚ´æÄÚÈİÇ°n¸ö×Ö½Úµ½destËùÖ¸µØÖ·ÉÏ¡£
-                                                        //ºÍstrcpy²»Í¬µÄÊÇ£¬memcpy()»áÍêÕûµÄ¸´ÖÆn¸ö×Ö½Ú£¬
-                                                        //²»»áÒòÎªÓöµ½×Ö·û´®½áÊø'\0'¶ø½áÊø
+char *My_strcat(char *des, const char *src);//å­—ç¬¦ä¸²çš„è¿½åŠ 
+char *My_strcpy(char *des, const char *src);//å­—ç¬¦ä¸²æ‹·è´
+int My_strcmp(const char *str1, const char *str2);//å­—ç¬¦ä¸²çš„æ¯”è¾ƒ
+void *My_memset(void *s, int ch, size_t size);//å°†sæŒ‡å‘çš„å†…å­˜åŒºåŸŸå‰nä¸ªå­—èŠ‚ä»¥å‚æ•°cä¼ å…¥ï¼Œ
+                                           //ç„¶åè¿”å›sçš„æŒ‡é’ˆã€‚ç”¨äºå°†æ•°ç»„åˆå§‹åŒ–è¾ƒæ–¹ä¾¿
+                                            //è¯´æ˜:å‚æ•°cè™½å£°æ˜ä¸ºint,ä½†å¿…é¡»æ˜¯unsigned char,æ‰€ä»¥èŒƒå›´åœ¨0åˆ°255ä¹‹é—´
+void *My_memcpy(void *dest, const void *src, size_t count);//æ‹·è´srcæ‰€æŒ‡å‘çš„å†…å­˜å†…å®¹å‰nä¸ªå­—èŠ‚åˆ°destæ‰€æŒ‡åœ°å€ä¸Šã€‚
+                                                        //å’Œstrcpyä¸åŒçš„æ˜¯ï¼Œmemcpy()ä¼šå®Œæ•´çš„å¤åˆ¶nä¸ªå­—èŠ‚ï¼Œ
+                                                        //ä¸ä¼šå› ä¸ºé‡åˆ°å­—ç¬¦ä¸²ç»“æŸ'\0'è€Œç»“æŸ
 
-int My_memcmp(const void *s1, const void *s2, size_t n);//±È½Ïs1ºÍs2Ç°n¸ö×Ö·û,·µ»Ø²îÖµ
+int My_memcmp(const void *s1, const void *s2, size_t n);//æ¯”è¾ƒs1å’Œs2å‰nä¸ªå­—ç¬¦,è¿”å›å·®å€¼
 void *My_memmove( void *dest, const void *src, size_t count);
 
 size_t My_strlen1(const char *str)
 {
 	assert(str != NULL);
-	/*ÄÚºËÔ´Âë:
-	**scÏÈÊÇÖ¸ÏòÔ´×Ö·û´®Ê×ÔªËØ£¬Ëæºósc++£¬ÖªµÀÓöµ½'\0',ÔòÖ¸ÏòÁË
-	**Êı×éµÄÄ©Î²µÄ'\0',ÔòÓÃ´ËÊ±µÄµØÖ·¼õÈ¥Êı×éÊ×ÔªËØµÄµØÖ·¼´ÊÇÕû¸ö×Ö·û´®µÄ´óĞ¡*/
+	/*å†…æ ¸æºç :
+	**scå…ˆæ˜¯æŒ‡å‘æºå­—ç¬¦ä¸²é¦–å…ƒç´ ï¼Œéšåsc++ï¼ŒçŸ¥é“é‡åˆ°'\0',åˆ™æŒ‡å‘äº†
+	**æ•°ç»„çš„æœ«å°¾çš„'\0',åˆ™ç”¨æ­¤æ—¶çš„åœ°å€å‡å»æ•°ç»„é¦–å…ƒç´ çš„åœ°å€å³æ˜¯æ•´ä¸ªå­—ç¬¦ä¸²çš„å¤§å°*/
 	const char *sc;
-	for(sc=str; *sc!=0; ++sc)//sc´ËÊ±´æ´¢µÄµØÖ·ºÍstrÒ»Ñù£¬¶¼Ö¸Ïòstr×Ö·û´®
+	for(sc=str; *sc!=0; ++sc)//scæ­¤æ—¶å­˜å‚¨çš„åœ°å€å’Œsträ¸€æ ·ï¼Œéƒ½æŒ‡å‘strå­—ç¬¦ä¸²
 		/*nothing to do*/;
 	return (sc-str);
 }
 
 size_t My_strlen2(const char *str)
 {
-	/*²ÉÈ¡µİ¹éµÄ·½Ê½*/
+	/*é‡‡å–é€’å½’çš„æ–¹å¼*/
 	assert(str != NULL);
 	if(*str == '\0')
 		return 0;
 	else{
-		return 1+My_strlen2(++str);//str++,ÏÈÊ¹ÓÃÔ­×Ö·û£¬µÈÓÚËµ½«Í¬Ò»¸öµØÖ·Ñ¹Õ»Á½´Î£¬³ÌĞòÖĞ¶Ï
+		return 1+My_strlen2(++str);//str++,å…ˆä½¿ç”¨åŸå­—ç¬¦ï¼Œç­‰äºè¯´å°†åŒä¸€ä¸ªåœ°å€å‹æ ˆä¸¤æ¬¡ï¼Œç¨‹åºä¸­æ–­
 	}
 }
 
@@ -51,7 +51,7 @@ char *My_strcat(char *des, const char *src)
         tmp++;
 	while(*src != '\0')
         *tmp++ = *src++;
-    *tmp = '\0';		//×Ö·û´®×·¼Ó½áÊø£¬¸øÄ©Î²¼Ó\0
+    *tmp = '\0';		//å­—ç¬¦ä¸²è¿½åŠ ç»“æŸï¼Œç»™æœ«å°¾åŠ \0
     return des;
 }
 
@@ -79,7 +79,7 @@ int My_strcmp(const char *str1, const char *str2)
             break;
     }
     return 0;
-    /*Ò»¸ö´íÎóµÄÕ¹Ê¾£¬µ±str1³¤¶ÈºÍstr2³¤¶È²»Ò»ÖÂÊ±³ö´í
+    /*ä¸€ä¸ªé”™è¯¯çš„å±•ç¤ºï¼Œå½“str1é•¿åº¦å’Œstr2é•¿åº¦ä¸ä¸€è‡´æ—¶å‡ºé”™
     while((*str1 != '\0') && (*str2 != '\0'))
     {
         if(*str1 > *str2)
@@ -122,7 +122,7 @@ int My_memcmp(const void *s1, const void *s2, size_t n)
 {
     char *str1 = (char *)s1;
     char *str2 = (char *)s2;
-    assert((str1!='\0') && (str2!='\0') && (n >= 0));
+    assert((str1!=NULL) && (str2!=NULL) && (n >= 0));
     while((*str1-*str2)==0)
     {
         str1++;
@@ -130,15 +130,15 @@ int My_memcmp(const void *s1, const void *s2, size_t n)
     }
         return (*str1-*str2);
 }
-    /*ÎªÑéÖ¤memcpyºÍmemmoveµÄÇø±ğ
+    /*ä¸ºéªŒè¯memcpyå’Œmemmoveçš„åŒºåˆ«
     **void *memmove( void *dest, const void *src, size_t count );
-    **µ± src ºÍ dest ËùÖ¸ÄÚ´æÇøÓĞÖØµşÊ±£¬memmove Ïà¶Ô memcpy ÄÜÌá¹©±£Ö¤
-    **ÏÂÃæ¸ø³ö¾ßÌåµÄÀı×ÓÖ¤Ã÷
-    **µ±³öÏÖ(1)(destÎ²²¿ºÍsrcÍ·²¿ÖØºÏ)¶ÔÓ¦µÄÇé¿öÊ±£¬¾ÍĞèÒªÏÈ´ÓsrcµÄÍ·²¿¿ªÊ¼¸´ÖÆ;
-    **Ò²¾ÍÊÇmemmoveÔ´ÂëÖĞµÄif·ÖÖ§£¬Õâ²¿·ÖÔ´ÂëºÍmemcpyµÄÊµÏÖÊÇÒ»ÖÂµÄ;
-    **µ±³öÏÖ(2)(destÍ·²¿ºÍsrcÎ²²¿ÖØºÏ)¶ÔÓ¦µÄÇé¿öÊ±£¬¾ÍĞèÒªÏÈ´ÓsrcµÄÎ²²¿¿ªÊ¼¸´ÖÆ£¬
-    **·ÀÖ¹³öÏÖÁË¸²¸ÇÏÖÏó¡£Õâ¾ÍÊÇmemmove±Èmemcpy¶àµÄÒ»¸ö¿¼ÂÇµã£¬
-    **ËùÒÔËµ£¬ÔÚÊµ¼ÊÊ¹ÓÃÊ±£¬Ê¹ÓÃmemmoveÊÇ±Èmemcpy¸ü°²È«µÄ¡£
+    **å½“ src å’Œ dest æ‰€æŒ‡å†…å­˜åŒºæœ‰é‡å æ—¶ï¼Œmemmove ç›¸å¯¹ memcpy èƒ½æä¾›ä¿è¯
+    **ä¸‹é¢ç»™å‡ºå…·ä½“çš„ä¾‹å­è¯æ˜
+    **å½“å‡ºç°(1)(destå°¾éƒ¨å’Œsrcå¤´éƒ¨é‡åˆ)å¯¹åº”çš„æƒ…å†µæ—¶ï¼Œå°±éœ€è¦å…ˆä»srcçš„å¤´éƒ¨å¼€å§‹å¤åˆ¶;
+    **ä¹Ÿå°±æ˜¯memmoveæºç ä¸­çš„ifåˆ†æ”¯ï¼Œè¿™éƒ¨åˆ†æºç å’Œmemcpyçš„å®ç°æ˜¯ä¸€è‡´çš„;
+    **å½“å‡ºç°(2)(destå¤´éƒ¨å’Œsrcå°¾éƒ¨é‡åˆ)å¯¹åº”çš„æƒ…å†µæ—¶ï¼Œå°±éœ€è¦å…ˆä»srcçš„å°¾éƒ¨å¼€å§‹å¤åˆ¶ï¼Œ
+    **é˜²æ­¢å‡ºç°äº†è¦†ç›–ç°è±¡ã€‚è¿™å°±æ˜¯memmoveæ¯”memcpyå¤šçš„ä¸€ä¸ªè€ƒè™‘ç‚¹ï¼Œ
+    **æ‰€ä»¥è¯´ï¼Œåœ¨å®é™…ä½¿ç”¨æ—¶ï¼Œä½¿ç”¨memmoveæ˜¯æ¯”memcpyæ›´å®‰å…¨çš„ã€‚
     */
 void *My_memmove( void *dest, const void *src, size_t count)
 {
@@ -146,12 +146,12 @@ void *My_memmove( void *dest, const void *src, size_t count)
     char *s1 = (char *)dest;
     char *s2 = (char *)src;
     if(s1 > s2)
-    {/*destÎ²²¿ºÍsrcÍ·²¿ÖØºÏÊ±,¾ÍÏÈ´ÓsrcµÄÍ·²¿¿ªÊ¼¸´ÖÆ;*/
+    {/*destå°¾éƒ¨å’Œsrcå¤´éƒ¨é‡åˆæ—¶,å°±å…ˆä»srcçš„å¤´éƒ¨å¼€å§‹å¤åˆ¶;*/
         while(count--)
             *s1++ = *s2++;   
     }
     else if(s1 < s2)
-    {/*destÍ·²¿ºÍsrcÎ²²¿ÖØºÏÊ±,¾ÍÏÈ´ÓsrcµÄÎ²²¿¿ªÊ¼¸´ÖÆ*/
+    {/*destå¤´éƒ¨å’Œsrcå°¾éƒ¨é‡åˆæ—¶,å°±å…ˆä»srcçš„å°¾éƒ¨å¼€å§‹å¤åˆ¶*/
         char *s3 = s1+count;
         char *s4 = s2+count;
         while(count--)
@@ -163,8 +163,8 @@ int main(int argc, char const *argv)
 {
 	int select = 0;
 	
-	char s1[] = "liubaobao";	//Êı×é£¬ÔÚÕ»Çø
-	char *s2 = "helloz!rereewewew!";		//×Ö·û´®³£Á¿£¬ÔÚÎÄ×Ö³£Á¿Çø
+	char s1[] = "liubaobao";	//æ•°ç»„ï¼Œåœ¨æ ˆåŒº
+	char *s2 = "helloz!rereewewew!";		//å­—ç¬¦ä¸²å¸¸é‡ï¼Œåœ¨æ–‡å­—å¸¸é‡åŒº
     char *s6 = "helloz!";
 	char s3[] = "liubaobao";
 	char s4[] = "testtesttest";
@@ -181,15 +181,15 @@ int main(int argc, char const *argv)
 		cout<<"* 7.memcmp   8.memmove   0.quit_os  *"<<endl;
 		cout<<"*************************************"<<endl;
 		cout<<"+-----------------------------------+"<<endl;
-		cout<<"ÄãµÄÑ¡ÔñÊÇ£º";
+		cout<<"ä½ çš„é€‰æ‹©æ˜¯ï¼š";
 		scanf("%d", &select);
 		switch(select)
 		{
 			case 1:
 				cout<<strlen(s1)<<endl;
 				cout<<"+-------+"<<endl;
-				cout<<My_strlen1(s1)<<endl;//ÄÚºËµÄÊµÏÖĞÎÊ½
-				cout<<My_strlen2(s1)<<endl;//²»ÉêÇëµÚÈı·½±äÁ¿µÄÊµÏÖĞÎÊ½£ºµİ¹é
+				cout<<My_strlen1(s1)<<endl;//å†…æ ¸çš„å®ç°å½¢å¼
+				cout<<My_strlen2(s1)<<endl;//ä¸ç”³è¯·ç¬¬ä¸‰æ–¹å˜é‡çš„å®ç°å½¢å¼ï¼šé€’å½’
 				break;
 			case 2:
 				cout<<strcat(s1, s2)<<endl;
@@ -229,9 +229,9 @@ int main(int argc, char const *argv)
 				break;
 			case 8:
                 memcpy(&s4[4], s4, sizeof(s4)/sizeof(char));
-                cout<<"memcpyµÄ½á¹û\t"<<s4<<endl;
+                cout<<"memcpyçš„ç»“æœ\t"<<s4<<endl;
                 memmove(&s5[4], s5, sizeof(s5)/sizeof(char));
-                cout<<"memmoveµÄ½á¹û\t"<<s5<<endl;
+                cout<<"memmoveçš„ç»“æœ\t"<<s5<<endl;
                 cout<<"+-------+"<<endl;
                 My_memmove(&s9[4], s9, sizeof(s9)/sizeof(char));  
                 cout<<s9<<endl;
@@ -239,7 +239,7 @@ int main(int argc, char const *argv)
 			case 0:
 				return 0;
 			default:
-				cout<<"²ÎÊıÓĞÎó!"<<endl;
+				cout<<"å‚æ•°æœ‰è¯¯!"<<endl;
 				break;		
 		}
 	}
