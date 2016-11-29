@@ -163,16 +163,15 @@ int main(int argc, char const *argv)
 {
 	int select = 0;
 	
-	char s1[] = "liubaobao";	//数组，在栈区
+	char s1[50] = "liubaobao";	//数组，在栈区
 	char *s2 = "helloz!rereewewew!";		//字符串常量，在文字常量区
-    char *s6 = "helloz!";
-	char s3[] = "liubaobao";
-	char s4[] = "testtesttest";
-	char s5[] = "testtesttest";
-    char s9[] = "testtesttest";
-    char s7[20];
-    char s8[20];
-    int a[10] = {0};
+        char *s6 = "helloz!";
+	char s3[50] = "liubaobao";
+	char s4[50] = "testtesttest";
+	char s5[50] = "testtesttest";
+        char s9[50] = "testtesttest";
+    
+        int a[10] = {0};
 	while(1)
 	{
 		cout<<"*************************************"<<endl;
@@ -237,7 +236,7 @@ int main(int argc, char const *argv)
                 cout<<s9<<endl;
 				break;
 			case 0:
-				return 0;
+				exit(EXIT_SUCCESS);
 			default:
 				cout<<"参数有误!"<<endl;
 				break;		
